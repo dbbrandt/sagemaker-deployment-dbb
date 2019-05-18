@@ -72,16 +72,18 @@ def predict_fn(input_data, model):
     #         data_len - The length of the review
 
     print("Model_fn: Word-Dict: type: {}, len: {}".format(type(model.word_dict), len(model.word_dict)))
-    print("Model_fn: Input Data: type: {}, len: {}".format(input_data), len(input_Data)))
-    print("Model_fn: Review To Words: type: {}, len: {}".format(input_data, len(input_data)))
+    print("Model_fn: Input Data: type: {}, len: {}".format(input_data, len(input_data)))
+    words = review_to_words(input_data)
+    print("Model_fn: Review To Words: type: {}, len: {}".format(words, len(words)))
     data_X, data_X_len = convert_and_pad(model.word_dict, review_to_words(input_data))
-    print("Predict_fn: data_X_len: {}, data_X.shape: {}".format(data_X_len, data_X.shape))
+    print("Predict_fn: data_X_len: {}, data_X: {}".format(data_X_len, data_X))
 
     # Using data_X and data_len we construct an appropriate input tensor. Remember
     # that our model expects input data of the form 'len, review[500]'.
-    data_pack = np.hstack((data_len, data_X))
+    data_pack = np.hstack((data_X_len, data_X))
     data_pack = data_pack.reshape(1, -1)
 
+    data = torch.from_numpy(data_pack)
     data = data.to(device)
     print("Predict_fn: data.shape: {}, type(data): {}".format(data.shape, type(data)))
 
