@@ -29,7 +29,6 @@ def convert_and_pad(word_dict, sentence, pad=500):
     working_sentence = [NOWORD] * pad
     
     for word_index, word in enumerate(sentence[:pad]):
-        print("Word: {}, type(word_dict): {}".format(word, type(word_dict)))
         if word in word_dict:
             working_sentence[word_index] = word_dict[word]
         else:
