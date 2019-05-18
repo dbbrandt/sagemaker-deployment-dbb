@@ -40,7 +40,8 @@ def model_fn(model_dir):
     word_dict_path = os.path.join(model_dir, 'word_dict.pkl')
     with open(word_dict_path, 'rb') as f:
         model.word_dict = pickle.load(f)
-
+    
+    print("Model_fn: Word-Dict: type: {}, len: {}".format(type(word_dict), len(word_dict)))
     model.to(device).eval()
 
     print("Done loading model.")
